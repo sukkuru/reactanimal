@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useState } from 'react'
+import AnimalShow from './Animal'
+import './Animal.css'
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function getRandomAnimals() {
+  const animals = ["brid", "horse", "cat", "dog", "gator", "cow"]
+  return animals[Math.floor(Math.random() * animals.length)]
 }
 
-export default App;
+function App() { 
+  const [animal,setAnimals]=useState([])
+
+  //const [count, setCount] = useState(0);
+  const handleClick = () => {
+    //animals.push(getRandomAnimals())
+    setAnimals([...animal,getRandomAnimals()])
+   // setCount(count + 1)
+  }
+
+  const renderedAnimals=animal.map((animals,index)=>{
+    return <AnimalShow type={animals} key={index} />
+
+  })
+
+  return (
+    <div className='app'>
+      <button onClick={handleClick}>Add Animal</button>
+      {/*<div>Number of animals:{count}</div>*/}
+      <div className='animal-list'> {renderedAnimals}</div>
+    </div>
+  )
+  }
+
+
+
+export default App
+
+
